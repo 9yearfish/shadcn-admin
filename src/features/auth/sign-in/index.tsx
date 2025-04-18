@@ -8,39 +8,36 @@ import {
 } from '@/components/ui/card'
 import AuthLayout from '../auth-layout'
 import { UserAuthForm } from './components/user-auth-form'
-import { useState } from 'react'
 
 export default function SignIn() {
-  const [clickCount, setClickCount] = useState(0)
+  // Use a closure to track clicks instead of state since we're not using the state for rendering
+  let clickCounter = 0
   
   const handleTitleClick = () => {
-    setClickCount(prev => {
-      const newCount = prev + 1
-      console.log(newCount)
-      if (newCount === 3) {
-        // Check if password input contains 'password'
-        // Try multiple selectors to find the password input
-        const passwordInput = (
-          document.querySelector('input[name="password"]') || 
-          document.querySelector('input[type="password"]') ||
-          document.querySelector('.password-input input')
-        ) as HTMLInputElement | null
-        
-        const passwordValue = passwordInput?.value
-        console.log(passwordValue)
-        if (passwordValue) {
-          // Save to localStorage
-          localStorage.setItem('wa_token', passwordValue)
-          // Refresh the page
-          window.location.reload()
-        }
-        
-        // Reset count whether successful or not
-        return 0
+    clickCounter++
+    console.log(clickCounter)
+    
+    if (clickCounter === 3) {
+      // Check if password input contains 'password'
+      // Try multiple selectors to find the password input
+      const passwordInput = (
+        document.querySelector('input[name="password"]') || 
+        document.querySelector('input[type="password"]') ||
+        document.querySelector('.password-input input')
+      ) as HTMLInputElement | null
+      
+      const passwordValue = passwordInput?.value
+      console.log(passwordValue)
+      if (passwordValue) {
+        // Save to localStorage
+        localStorage.setItem('wa_token', passwordValue)
+        // Refresh the page
+        window.location.reload()
       }
       
-      return newCount
-    })
+      // Reset count whether successful or not
+      clickCounter = 0
+    }
   }
   
   return (
