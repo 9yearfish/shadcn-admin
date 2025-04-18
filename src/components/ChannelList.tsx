@@ -585,7 +585,7 @@ export function ChannelList() {
                       </TableCell>
                       <TableCell>
                         {channel.mode === 'premium' ? (
-                          <Badge variant="default" className="bg-gray-800 hover:bg-gray-900">
+                          <Badge variant="default" className="bg-gray-800 hover:bg-gray-900 dark:bg-gray-200 dark:hover:bg-gray-300">
                             Premium
                           </Badge>
                         ) : (

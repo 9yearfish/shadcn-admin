@@ -11,8 +11,22 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { ExitIcon, GearIcon } from '@radix-ui/react-icons'
+import { useNavigate } from '@tanstack/react-router'
+import { useAuthStore } from '@/lib/auth'
+import { toast } from 'sonner'
 
 export function ProfileDropdown() {
+  const navigate = useNavigate()
+  const { clearAuth } = useAuthStore()
+  
+  // 处理登出
+  const handleLogout = () => {
+    clearAuth()
+    toast.success('您已成功登出')
+    navigate({ to: '/sign-in' })
+  }
+  
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
@@ -55,9 +69,9 @@ export function ProfileDropdown() {
           <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+        <DropdownMenuItem onClick={handleLogout}>
+          <ExitIcon className='mr-2 h-4 w-4' />
+          <span>登出</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -1,12 +1,22 @@
 import Cookies from 'js-cookie'
-import { createFileRoute, Outlet } from '@tanstack/react-router'
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 import { cn } from '@/lib/utils'
 import { SearchProvider } from '@/context/search-context'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/layout/app-sidebar'
 import SkipToMain from '@/components/skip-to-main'
+import { checkIsAuthenticated } from '@/lib/auth'
 
 export const Route = createFileRoute('/_authenticated')({
+  beforeLoad: () => {
+    // 检查是否已登录
+    if (!checkIsAuthenticated()) {
+      throw redirect({
+        to: '/sign-in',
+        replace: true,
+      })
+    }
+  },
   component: RouteComponent,
 })
 

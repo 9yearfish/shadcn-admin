@@ -1,35 +1,39 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 // Create axios instance with default config
-const api = axios.create({
+const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '',
+  timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
-  },
-  timeout: 10000,
+    'Accept': 'application/json',
+  }
 })
 
 // Request interceptor for adding auth token
-api.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('wa_token')
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+      config.headers['Authorization'] = `Bearer ${token}`
     }
     return config
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    return Promise.reject(error)
+  }
 )
 
 // Response interceptor for error handling
-api.interceptors.response.use(
-  (response) => response,
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response
+  },
   (error) => {
-    // Handle global errors here (like 401 Unauthorized)
-    if (error.response?.status === 401) {
-      // Redirect to login or refresh token
-      localStorage.removeItem('token')
-      window.location.href = '/login'
+    if (error.response && error.response.status === 401) {
+      // 清除token并跳转到登录页
+      localStorage.removeItem('wa_token')
+      window.location.href = '/sign-in'
     }
     return Promise.reject(error)
   }
@@ -43,7 +47,7 @@ const request = async <T>(
   config?: AxiosRequestConfig
 ): Promise<T> => {
   try {
-    const response: AxiosResponse<T> = await api({
+    const response: AxiosResponse<T> = await axiosInstance({
       method,
       url,
       data,
@@ -56,7 +60,7 @@ const request = async <T>(
 }
 
 // Typed request methods
-export const apiService = {
+const apiService = {
   get: <T>(url: string, config?: AxiosRequestConfig) =>
     request<T>('get', url, undefined, config),
   post: <T>(url: string, data?: any, config?: AxiosRequestConfig) =>
