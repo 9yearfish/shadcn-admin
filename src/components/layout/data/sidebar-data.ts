@@ -18,7 +18,7 @@ import {
   IconUserCog,
   IconUserOff,
   IconUsers,
-  IconCode,
+  IconAdjustments
 } from '@tabler/icons-react'
 import { AudioWaveform, Command, GalleryVerticalEnd } from 'lucide-react'
 import { type SidebarData } from '../types'
@@ -77,9 +77,9 @@ export const sidebarData: SidebarData = {
           icon: IconUsers,
         },
         {
-          title: 'API Demo',
-          url: '/demo',
-          icon: IconCode,
+          title: 'Channels',
+          url: '/channels',
+          icon: IconAdjustments,
         },
       ],
     },

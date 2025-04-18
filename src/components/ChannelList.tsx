@@ -503,7 +503,7 @@ export function ChannelList() {
         </DialogContent>
       </Dialog>
 
-      <Card>
+      {/* <Card>
         <CardHeader>
           <CardTitle>{t('channels.title')}</CardTitle>
         </CardHeader>
@@ -528,7 +528,7 @@ export function ChannelList() {
           </div>
           <Button onClick={handleCreateChannel}>{t('channels.createChannel')}</Button>
         </CardContent>
-      </Card>
+      </Card> */}
 
       {loading ? (
         <div className="text-center">{t('common.loading')}</div>
