@@ -24,7 +24,6 @@ export function ChannelList() {
   const { t } = useI18n()
   const [channels, setChannels] = useState<Channel[]>([])
   const [loading, setLoading] = useState(false)
-  const [newChannel, setNewChannel] = useState({ name: '', description: '' })
   const [channelStatuses, setChannelStatuses] = useState<Record<string, { 
     status: string; 
     loading: boolean; 
@@ -486,16 +485,16 @@ export function ChannelList() {
               <Label htmlFor="channelName">{t('channels.channelName')}</Label>
               <Input
                 id="channelName"
-                value={newChannel.name}
-                onChange={(e) => setNewChannel({ ...newChannel, name: e.target.value })}
+                value=""
+                onChange={() => {}}
               />
             </div>
             <div>
               <Label htmlFor="channelDescription">{t('channels.channelDescription')}</Label>
               <Input
                 id="channelDescription"
-                value={newChannel.description}
-                onChange={(e) => setNewChannel({ ...newChannel, description: e.target.value })}
+                value=""
+                onChange={() => {}}
               />
             </div>
           </div>
