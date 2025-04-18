@@ -11,7 +11,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { ExitIcon, GearIcon } from '@radix-ui/react-icons'
+import { ExitIcon } from '@radix-ui/react-icons'
 import { useNavigate } from '@tanstack/react-router'
 import { useAuthStore } from '@/lib/auth'
 import { toast } from 'sonner'

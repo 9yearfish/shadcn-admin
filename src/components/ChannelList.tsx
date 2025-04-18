@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useI18n } from '@/lib/i18n/index.tsx'
-import channelService, { Channel, ChannelStatus, ChannelWebhook, SetWebhookDto, AddDaysDto } from '@/services/channelService'
+import channelService, { Channel, SetWebhookDto, AddDaysDto } from '@/services/channelService'
 import systemService, { WebhookDomain } from '@/services/systemService'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { ReloadIcon, CheckCircledIcon, CrossCircledIcon, ExternalLinkIcon, GearIcon, PlusIcon, CalendarIcon } from '@radix-ui/react-icons'
+import { ReloadIcon, CheckCircledIcon, CrossCircledIcon, GearIcon, CalendarIcon } from '@radix-ui/react-icons'
 import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import {
@@ -17,7 +17,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog"
 
@@ -37,7 +36,6 @@ export function ChannelList() {
     error: boolean;
   }>>({})
   const [webhookDomains, setWebhookDomains] = useState<WebhookDomain[]>([])
-  const [configLoading, setConfigLoading] = useState(false)
   const [selectedChannel, setSelectedChannel] = useState<string | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [addDaysDialogOpen, setAddDaysDialogOpen] = useState(false)
@@ -61,7 +59,7 @@ export function ChannelList() {
   
   // GET - Fetch system configuration
   const fetchSystemConfig = async () => {
-    setConfigLoading(true)
+    setLoading(true)
     try {
       const config = await systemService.getSystemConfig()
       setWebhookDomains(config.webhook_domain || [])
@@ -69,7 +67,7 @@ export function ChannelList() {
       console.error('Error fetching system config:', error)
       toast.error('Failed to load system configuration')
     } finally {
-      setConfigLoading(false)
+      setLoading(false)
     }
   }
   
@@ -213,31 +211,6 @@ export function ChannelList() {
         }
       }))
       toast.error(`Failed to set webhook for channel ${channelId}`)
-    }
-  }
-  
-  // POST example - Create a new channel
-  const handleCreateChannel = async () => {
-    try {
-      const data = await channelService.createChannel(newChannel)
-      setChannels([...channels, data])
-      setNewChannel({ name: '', description: '' })
-      toast.success(t('channels.channelCreated'))
-    } catch (error) {
-      console.error('Error creating channel:', error)
-      toast.error(t('errors.somethingWentWrong'))
-    }
-  }
-  
-  // DELETE example - Delete a channel
-  const handleDeleteChannel = async (id: string) => {
-    try {
-      await channelService.deleteChannel(id)
-      setChannels(channels.filter(channel => channel.id !== id))
-      toast.success(t('channels.channelDeleted'))
-    } catch (error) {
-      console.error('Error deleting channel:', error)
-      toast.error(t('errors.somethingWentWrong'))
     }
   }
   
@@ -526,7 +499,7 @@ export function ChannelList() {
               />
             </div>
           </div>
-          <Button onClick={handleCreateChannel}>{t('channels.createChannel')}</Button>
+          <Button>{t('channels.createChannel')}</Button>
         </CardContent>
       </Card> */}
 

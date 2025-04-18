@@ -1,4 +1,3 @@
-import { redirect } from '@tanstack/react-router'
 import { checkIsAuthenticated } from './auth'
 
 /**
