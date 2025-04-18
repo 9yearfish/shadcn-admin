@@ -12,6 +12,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { handleServerError } from '@/utils/handle-server-error'
 import { FontProvider } from './context/font-context'
 import { ThemeProvider } from './context/theme-context'
+import { I18nProvider } from './lib/i18n/index.tsx'
 import './index.css'
 // Generated Routes
 import { routeTree } from './routeTree.gen'
@@ -91,7 +92,9 @@ if (!rootElement.innerHTML) {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
           <FontProvider>
-            <RouterProvider router={router} />
+            <I18nProvider>
+              <RouterProvider router={router} />
+            </I18nProvider>
           </FontProvider>
         </ThemeProvider>
       </QueryClientProvider>

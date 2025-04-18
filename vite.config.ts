@@ -23,4 +23,16 @@ export default defineConfig({
       '@tabler/icons-react': '@tabler/icons-react/dist/esm/icons/index.mjs',
     },
   },
+  server: {
+    proxy: {
+      // 所有以 /api 开头的请求将被代理到目标服务器
+      '/api': {
+        target: 'https://app.watchwa.com/',
+        changeOrigin: true,
+        secure: false,
+        // 如果API不需要 /api 前缀，可以使用 rewrite 去掉
+        // rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 })

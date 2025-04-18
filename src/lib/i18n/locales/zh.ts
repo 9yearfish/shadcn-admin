@@ -1,0 +1,53 @@
+const zh = {
+  common: {
+    save: '保存',
+    cancel: '取消',
+    delete: '删除',
+    edit: '编辑',
+    add: '添加',
+    search: '搜索',
+    loading: '加载中...',
+    noData: '暂无数据',
+    confirm: '确认',
+    success: '成功',
+    error: '错误',
+  },
+  auth: {
+    login: '登录',
+    register: '注册',
+    logout: '退出登录',
+    email: '邮箱',
+    password: '密码',
+    forgotPassword: '忘记密码',
+    resetPassword: '重设密码',
+  },
+  channels: {
+    title: '频道',
+    createChannel: '创建频道',
+    editChannel: '编辑频道',
+    deleteChannel: '删除频道',
+    channelName: '频道名称',
+    channelDescription: '频道描述',
+    confirmDelete: '确定要删除此频道吗？',
+    channelCreated: '频道创建成功',
+    channelUpdated: '频道更新成功',
+    channelDeleted: '频道删除成功',
+  },
+  settings: {
+    title: '设置',
+    language: '语言',
+    theme: '主题',
+    account: '账户',
+    notifications: '通知',
+    security: '安全',
+  },
+  errors: {
+    somethingWentWrong: '出错了',
+    notFound: '未找到',
+    unauthorized: '未授权',
+    forbidden: '禁止访问',
+    invalidCredentials: '无效的凭证',
+  },
+}
+
+export default zh 
