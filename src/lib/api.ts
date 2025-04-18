@@ -1,8 +1,19 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
+// 判断当前环境
+const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+
+// 设置基础 URL
+let baseURL = import.meta.env.VITE_API_BASE_URL || ''
+
+// 在非本地环境下，强制使用特定的 API 域名
+if (!isLocalDev) {
+  baseURL = 'https://app.watchwa.com' // 请替换为您的实际 API 域名
+}
+
 // Create axios instance with default config
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '',
+  baseURL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
