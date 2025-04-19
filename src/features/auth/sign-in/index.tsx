@@ -48,7 +48,7 @@ export default function SignIn() {
             className='text-lg tracking-tight cursor-pointer'
             onClick={handleTitleClick}
           >
-            Login1
+            Login
           </CardTitle>
           <CardDescription>
             Enter your email and password below to <br />
